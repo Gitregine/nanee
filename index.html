@@ -2,18 +2,24 @@
 <html lang="en">
 <head>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <meta charset="UTF-8">
 <title>Stitch Surprise</title>
 <style>
+  html {
+  font-size: 20px;
+}
   body {
   background: #ffffff;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  font-family: "Poppins", "Arial", sans-serif;
-  font-size: 18px;
-  line-height: 1.6;
+  font-family: "Poppins", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.7;
+    
 }
 
 .stitch-container {
@@ -160,6 +166,8 @@
   text-align: center;
   transition: 0.3s ease;
   font-size: 18px;
+  max-width: 90vw;
+  padding: 24px;
 }
 
 .surprise.show {
@@ -206,19 +214,17 @@
     font-size: 18px;
   }
 }
+  .surprise p {
+  font-size: 1.1rem;
+}
 
 /* Special question styling */
 .big-question {
-  margin-top: 15px;
-  font-size: 24px;
-  font-weight: bold;
-  color: #ff4d88;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-top: 20px;
   text-align: center;
-  animation: pulse 1.4s infinite;
-  text-shadow:
-    0 0 5px #ffb6c1,
-    0 0 10px #ff7eb9,
-    2px 2px 0 #ffffff;
+  color: #ff4d88;
 }
 
 /* Pulse animation */
@@ -338,6 +344,21 @@
 @keyframes sadFade {
   0%, 100% { opacity: 0.6; }
   50% { opacity: 1; }
+}
+
+  @media (max-width: 480px) {
+  html {
+    font-size: 22px;
+  }
+
+  .big-question {
+    font-size: 1.7rem;
+  }
+
+  .buttons button {
+    font-size: 1.1rem;
+    padding: 14px 24px;
+  }
 }
 
 </style>
@@ -474,4 +495,5 @@ function sayNo() {
 
 </body>
 </html>
+
 
