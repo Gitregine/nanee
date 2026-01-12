@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Stitch Surprise</title>
+<style>
+  body {
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+.stitch-container {
+  text-align: center;
+  position: relative;
+}
+
+/* Wiggle text */
+.stitch-text {
+  font-size: 22px;
+  color: #ff7eb9;
+  font-weight: bold;
+  margin-bottom: 10px;
+  animation: wiggle 1.5s infinite;
+  text-shadow: 2px 2px 0 #fff, 4px 4px 0 #0a2a66;
+}
+
+@keyframes wiggle {
+  0%,100% { transform: rotate(0); }
+  25% { transform: rotate(2deg); }
+  75% { transform: rotate(-2deg); }
+}
+
+/* Button */
+.stitch-btn {
+  position: relative;
+  width: 220px;
+  height: 120px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.stitch-btn:hover {
+  transform: translateY(-18px);
+}
+
+/* Face */
+.face {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 90px;
+  background: #1389f2;
+  border-radius: 100px 100px 20px 20px;
+  border: 5px solid #0a2a66;
+}
+
+/* Eyes (blinking) */
+.eye {
+  position: absolute;
+  top: 30px;
+  width: 40px;
+  height: 50px;
+  background: #2b1b14;
+  border-radius: 50%;
+  animation: blink 5s infinite;
+}
+
+@keyframes blink {
+  0%, 95%, 100% { height: 50px; }
+  97% { height: 5px; }
+}
+
+.eye.left { left: 45px; }
+.eye.right { right: 45px; }
+
+/* Nose */
+.nose {
+  position: absolute;
+  top: 45px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 35px;
+  background: #082b5c;
+  border-radius: 50%;
+}
+
+/* Ears */
+.ear {
+  position: absolute;
+  top: 0;
+  width: 70px;
+  height: 120px;
+  background: #1389f2;
+  border-radius: 50%;
+  border: 5px solid #0a2a66;
+  overflow: hidden;
+}
+
+.inner-ear {
+  position: absolute;
+  top: 15px;
+  left: 10px;
+  width: 45px;
+  height: 90px;
+  background: #ff9acb;
+  border-radius: 50%;
+}
+
+.ear.left {
+  left: -50px;
+  transform: rotate(-10deg);
+}
+
+.ear.right {
+  right: -50px;
+  transform: rotate(10deg);
+}
+
+/* Hearts */
+.heart-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+}
+
+.heart {
+  position: absolute;
+  bottom: 120px;
+  font-size: 28px;
+  animation: floatUp 2s ease forwards;
+}
+
+@keyframes floatUp {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-120px); }
+}
+
+/* Surprise message */
+.surprise {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  background: #fff;
+  padding: 20px 30px;
+  border-radius: 16px;
+  border: 4px dashed #ff7eb9;
+  font-size: 20px;
+  color: #1389f2;
+  text-align: center;
+  transition: 0.3s ease;
+}
+
+.surprise.show {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Mobile responsive */
+@media (max-width: 600px) {
+  .stitch-btn {
+    width: 180px;
+    height: 100px;
+  }
+
+  .face {
+    height: 75px;
+  }
+
+  .eye {
+    width: 30px;
+    height: 40px;
+  }
+
+  .nose {
+    width: 40px;
+    height: 28px;
+  }
+
+  .ear {
+    width: 55px;
+    height: 95px;
+  }
+
+  .inner-ear {
+    width: 35px;
+    height: 70px;
+  }
+
+  .stitch-text {
+    font-size: 18px;
+  }
+
+  .surprise {
+    width: 80%;
+    font-size: 18px;
+  }
+}
+
+/* Special question styling */
+.big-question {
+  margin-top: 15px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #ff4d88;
+  text-align: center;
+  animation: pulse 1.4s infinite;
+  text-shadow:
+    0 0 5px #ffb6c1,
+    0 0 10px #ff7eb9,
+    2px 2px 0 #ffffff;
+}
+
+/* Pulse animation */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Typewriter question */
+.big-question {
+  margin-top: 18px;
+  font-size: 26px;
+  font-weight: bold;
+  color: #ff4d88;
+  text-align: center;
+  min-height: 40px;
+  text-shadow:
+    0 0 5px #ffb6c1,
+    0 0 10px #ff7eb9,
+    2px 2px 0 #ffffff;
+}
+
+/* Buttons */
+.buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.buttons button {
+  background: #ff7eb9;
+  border: none;
+  padding: 10px 18px;
+  font-size: 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: transform 0.2s ease;
+}
+
+.buttons button:hover {
+  transform: scale(1.1);
+}
+
+/* Extra hearts rain */
+.heart.rain {
+  animation: rain 3s linear forwards;
+}
+
+@keyframes rain {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-250px);
+  }
+}
+
+/* Happy Stitch reaction */
+.stitch-happy {
+  animation: bounceHappy 0.6s infinite alternate;
+}
+
+@keyframes bounceHappy {
+  from { transform: translateY(-18px) scale(1); }
+  to { transform: translateY(-25px) scale(1.05); }
+}
+
+/* NO button style */
+.no-btn {
+  background: #444;
+  color: #fff;
+}
+
+/* Black screen overlay */
+.sad-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+  z-index: 9999;
+}
+
+.sad-screen.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Sad emoji */
+.sad-emoji {
+  font-size: 120px;
+  animation: sadFade 2s infinite;
+}
+
+@keyframes sadFade {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+</style>
+</head>
+<body>
+
+<div class="stitch-container">
+  <div class="stitch-text">click me wifey~</div>
+
+  <div class="stitch-btn" onclick="showSurprise()">
+    <div class="ear left">
+      <div class="inner-ear"></div>
+    </div>
+    <div class="ear right">
+      <div class="inner-ear"></div>
+    </div>
+
+    <div class="face">
+      <div class="eye left"></div>
+      <div class="eye right"></div>
+      <div class="nose"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Floating hearts -->
+<div class="heart-container"></div>
+
+<!-- Surprise box -->
+<div class="surprise" id="surprise">
+  <p>💕 From the moment I got to know you, you’ve had a special place in my heart. 
+    I don’t just like you, I care about you and I LOVE YOU!</p>
+  
+
+  <div class="big-question" id="question"></div>
+
+  <div class="buttons">
+  <button onclick="sayYes()">YES 💖</button>
+  <button onclick="sayYes()">YES!!! 😭💍</button>
+  <button class="no-btn" onclick="sayNo()">No 😔</button>
+</div>
+</div>
+<div class="sad-screen" id="sadScreen">
+  <div class="sad-emoji">😔</div>
+</div>
+
+<!-- Romantic sound -->
+<audio id="loveSound">
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_5bfc5b0a7a.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+function showSurprise() {
+  // Show surprise box
+  document.getElementById("surprise").classList.add("show");
+
+  // Create multiple hearts
+  for (let i = 0; i < 8; i++) {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "💓";
+
+    heart.style.left = Math.random() * 90 + "%";
+    heart.style.fontSize = (20 + Math.random() * 20) + "px";
+    heart.style.animationDuration = (1.5 + Math.random()) + "s";
+
+    document.querySelector(".heart-container").appendChild(heart);
+
+    setTimeout(() => heart.remove(), 2500);
+  }
+}
+
+const questionText = "Would you be my girlfriend?";
+let index = 0;
+
+function typeQuestion() {
+  if (index < questionText.length) {
+    document.getElementById("question").innerHTML += questionText.charAt(index);
+    index++;
+    setTimeout(typeQuestion, 80);
+  } else {
+    rainHearts();
+  }
+}
+
+// Trigger typing when surprise shows
+const observer = new MutationObserver(() => {
+  if (document.getElementById("surprise").classList.contains("show")) {
+    document.getElementById("question").innerHTML = "";
+    index = 0;
+    typeQuestion();
+  }
+});
+
+observer.observe(document.getElementById("surprise"), { attributes: true });
+
+// Hearts rain
+function rainHearts() {
+  for (let i = 0; i < 15; i++) {
+    const heart = document.createElement("div");
+    heart.classList.add("heart", "rain");
+    heart.innerHTML = "💓";
+    heart.style.left = Math.random() * 100 + "%";
+    heart.style.fontSize = (18 + Math.random() * 20) + "px";
+    document.querySelector(".heart-container").appendChild(heart);
+
+    setTimeout(() => heart.remove(), 3000);
+  }
+}
+
+// YES clicked
+function sayYes() {
+  document.getElementById("loveSound").play();
+  document.querySelector(".stitch-btn").classList.add("stitch-happy");
+
+  for (let i = 0; i < 20; i++) {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "💖";
+    heart.style.left = Math.random() * 100 + "%";
+    document.querySelector(".heart-container").appendChild(heart);
+    setTimeout(() => heart.remove(), 2500);
+  }
+
+  document.getElementById("question").innerHTML = "SHE SAID YES 😭💍💕🤍";
+}
+
+function sayNo() {
+  document.getElementById("sadScreen").classList.add("show");
+}
+
+</script>
+
+
+</body>
+</html>
